@@ -21,7 +21,34 @@ struct transaction {
 	char date[11];
 	char description[20];
 };
-
+int get_int(char *date, int i, int j)
+{
+	int result = 0;
+	for (; i<j; i++)
+	{
+		result = result * 10 + (date[i] - '0');
+	}
+	return result;
+}
 struct transaction * sortedArraysCommonElements(struct transaction *A, int ALen, struct transaction *B, int BLen) {
-	return NULL;
+	if (A== NULL ||B==NULL)
+		return NULL;
+	int i,j,k=-1;
+	struct transaction *ans = (struct transaction*)malloc(sizeof(struct transaction) * 20);
+	for (i = 0; i < ALen; i++)
+	{
+		for (j = 0; j < BLen; j++){
+			if (get_int(A[i].date, 6, 10) == get_int(B[j].date, 6, 10))
+			if (get_int(A[i].date, 3, 5) == get_int(B[j].date, 3, 5))
+			if (get_int(A[i].date, 0, 2) == get_int(B[j].date, 0, 2))
+			{
+				k++;
+				ans[k] = B[j];
+				break;
+			}
+		}
+	}
+	if (k == -1)
+		return NULL;
+	return ans;
 }
